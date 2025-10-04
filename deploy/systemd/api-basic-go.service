@@ -1,0 +1,20 @@
+[Unit]
+Description=api-basic-go HTTP API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Path to installed binary
+ExecStart=/usr/local/bin/api-basic-go
+# Optional environment file
+EnvironmentFile=-/etc/api-basic-go.env
+Restart=always
+RestartSec=3
+# Recommended: run as a dedicated user (create it first)
+# User=api-basic-go
+# Group=api-basic-go
+
+[Install]
+WantedBy=multi-user.target
+

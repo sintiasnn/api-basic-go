@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    image: api-basic-go:latest
+    environment:
+      - PORT=8080
+      - CORS_ALLOWED_ORIGINS=*
+    ports:
+      - "8080:8080"
+

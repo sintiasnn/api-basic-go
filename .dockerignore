@@ -1,0 +1,17 @@
+# Ignore VCS and local files
+.git
+.gitignore
+
+# Go build artifacts
+bin/
+build/
+dist/
+*.out
+*.exe
+*.test
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
