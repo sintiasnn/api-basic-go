@@ -157,6 +157,18 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
     writeJSON(w, http.StatusOK, map[string]string{"message": "Hello, " + name + "!"})
 }
 
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+    if r.URL.Path != "/" {
+        http.NotFound(w, r)
+        return
+    }
+    if r.Method != http.MethodGet {
+        writeError(w, http.StatusMethodNotAllowed, "method not allowed")
+        return
+    }
+    writeJSON(w, http.StatusOK, map[string]string{"message": "welcome to todos simple API"})
+}
+
 func writeJSON(w http.ResponseWriter, status int, v any) {
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(status)
@@ -241,6 +253,7 @@ func main() {
     store := NewStore()
 
     mux := http.NewServeMux()
+    mux.HandleFunc("/", rootHandler)
     mux.HandleFunc("/health", healthHandler)
     mux.HandleFunc("/hello", helloHandler)
     mux.HandleFunc("/todos", store.todosHandler)

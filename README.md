@@ -15,6 +15,9 @@ go run .
 
 ## Endpoint
 
+- `GET /`: Welcome message.
+  - Contoh: `curl http://localhost:8080/`
+
 - `GET /health`: Cek status.
   - Contoh: `curl http://localhost:8080/health`
 
