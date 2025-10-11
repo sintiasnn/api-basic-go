@@ -1,10 +1,10 @@
-# Setup Ubuntu (systemd), Docker, Git, dan Go 1.21+
+# Setup Ubuntu (systemd), Docker, Git, dan Go 1.24+
 
-Panduan langkah demi langkah untuk Ubuntu (Linux native) agar memenuhi prasyarat proyek: systemd aktif, Docker + Compose v2, Git, dan Go 1.21+.
+Panduan langkah demi langkah untuk Ubuntu (Linux native) agar memenuhi prasyarat proyek: systemd aktif, Docker + Compose v2, Git, dan Go 1.24+.
 
 Ringkas:
 - Distro: Ubuntu (direkomendasikan).
-- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.21+ tersedia.
+- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.24+ tersedia.
 
 ## 1) Verifikasi systemd
 
@@ -59,12 +59,12 @@ docker version
 docker compose version
 ```
 
-## 4) Pasang Go 1.21+
+## 4) Pasang Go 1.24+
 
 Opsi A (disarankan — tarball resmi):
 
 ```
-GO_VER=1.21.13  # ganti ke rilis 1.21.x terbaru
+GO_VER=1.24.0  # ganti ke rilis 1.24.x terbaru
 curl -LO https://go.dev/dl/go${GO_VER}.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go${GO_VER}.linux-amd64.tar.gz
@@ -75,7 +75,7 @@ source ~/.profile || true
 go version
 ```
 
-Opsi B (apt) — sering lebih lama dari 1.21 (tidak direkomendasikan bila butuh 1.21+):
+Opsi B (apt) — sering lebih lama dari 1.24 (tidak direkomendasikan bila butuh 1.24+):
 
 ```
 sudo apt update

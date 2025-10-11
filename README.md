@@ -5,7 +5,7 @@ API sederhana dengan Go (tanpa dependency eksternal), menggunakan `net/http`.
 ## Prasyarat
 
  - OS: Ubuntu (native) atau Windows + WSL (Ubuntu, systemd aktif).
-- Go: 1.21+ — lihat detail di [REQUIREMENTS.md](REQUIREMENTS.md).
+- Go: 1.24+ — lihat detail di [REQUIREMENTS.md](REQUIREMENTS.md).
 - Docker + Docker Compose v2.
 - Git.
 - systemd: akses `systemctl` tersedia (untuk deploy/service).
@@ -15,7 +15,7 @@ Lihat panduan setup lengkap di `docs/SETUP.md`.
 
 ## Menjalankan
 
-- Prasyarat: lihat [REQUIREMENTS.md](REQUIREMENTS.md) (Go 1.21+)
+- Prasyarat: lihat [REQUIREMENTS.md](REQUIREMENTS.md) (Go 1.24+)
 - Jalankan server:
 
 ```

@@ -1,11 +1,11 @@
-# Setup WSL (systemd), Docker, Git, dan Go 1.21+
+# Setup WSL (systemd), Docker, Git, dan Go 1.24+
 
- Panduan langkah demi langkah menyiapkan lingkungan di WSL (Windows) untuk Ubuntu agar memenuhi prasyarat proyek: WSL dengan systemd aktif, Docker + Compose v2, Git, dan Go 1.21+.
+ Panduan langkah demi langkah menyiapkan lingkungan di WSL (Windows) untuk Ubuntu agar memenuhi prasyarat proyek: WSL dengan systemd aktif, Docker + Compose v2, Git, dan Go 1.24+.
 
 Ringkas:
 - Target: Ubuntu di WSL.
 - WSL: butuh systemd aktif (Windows 11/10 terbaru dengan WSL update).
-- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.21+ tersedia.
+- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.24+ tersedia.
 
 ## 0) Siapkan/Update WSL (Windows)
 
@@ -103,12 +103,12 @@ docker run --rm hello-world
 Catatan:
 - Alternatif: gunakan Docker Desktop for Windows dengan integrasi WSL. Namun untuk skenario systemd + service, memasang Docker Engine di dalam distro WSL sering lebih konsisten.
 
-## 4) Pasang Go 1.21+
+## 4) Pasang Go 1.24+
 
 Opsi A (disarankan, menggunakan tarball resmi):
 
 ```
-GO_VER=1.21.13  # ganti ke rilis 1.21.x terbaru
+GO_VER=1.24.0  # ganti ke rilis 1.24.x terbaru
 curl -LO https://go.dev/dl/go${GO_VER}.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go${GO_VER}.linux-amd64.tar.gz
@@ -119,7 +119,7 @@ source ~/.profile || true
 go version
 ```
 
-Opsi B (apt) — versi bisa lebih lama dari 1.21 (tidak direkomendasikan bila butuh 1.21+):
+Opsi B (apt) — versi bisa lebih lama dari 1.24 (tidak direkomendasikan bila butuh 1.24+):
 
 ```
 sudo apt update

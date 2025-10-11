@@ -9,7 +9,7 @@ Dokumen ini merangkum opsi setup untuk memenuhi prasyarat proyek dan menautkan k
 - Windows + WSL (Ubuntu): ikuti `docs/WSL_SYSTEMD_SETUP.md`.
   - Cocok untuk pengguna Windows yang menggunakan WSL dengan systemd.
 
-Keduanya menargetkan Ubuntu dengan systemd aktif, Docker Engine + Compose v2, Git, dan Go 1.21+.
+Keduanya menargetkan Ubuntu dengan systemd aktif, Docker Engine + Compose v2, Git, dan Go 1.24+.
 
 ## Verifikasi Cepat
 

@@ -4,7 +4,7 @@ Lingkungan target: Ubuntu (Linux native) atau Ubuntu pada Windows dengan WSL (de
 
 Wajib:
 - OS: Ubuntu (native) atau Windows + WSL (Ubuntu, systemd aktif).
-- Go: 1.21+ (sesuai `go.mod`).
+- Go: 1.24+ (sesuai `go.mod`).
 - Docker: Engine 20.10+ dan Docker Compose v2.
 - Git: 2.30+ (atau versi stabil setara).
 - systemd: akses `systemctl` untuk menjalankan service (lihat `deploy/systemd/`).

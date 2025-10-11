@@ -1,5 +1,5 @@
 # Multi-stage build for a small final image
-FROM golang:1.21-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 WORKDIR /src
 COPY go.mod .
@@ -19,4 +19,3 @@ COPY --from=builder /out/app /app
 EXPOSE 8080
 USER nonroot:nonroot
 ENTRYPOINT ["/app"]
-
