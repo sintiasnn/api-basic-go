@@ -1,4 +1,6 @@
-# api-basic-go [![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)](https://go.dev) [![systemd](https://img.shields.io/badge/systemd-deploy-139e4b?logo=systemd)](https://systemd.io) [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+# api-basic-go
+
+[![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)](https://go.dev) [![systemd](https://img.shields.io/badge/systemd-deploy-139e4b?logo=systemd)](https://systemd.io) [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 A simple Go HTTP API with zero external dependencies (`net/http` only) — built as a live demo for the workshop: **"Self-host your App without Docker: Why Not?"**
 
