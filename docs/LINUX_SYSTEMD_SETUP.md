@@ -1,24 +1,24 @@
-# Setup Ubuntu (systemd), Docker, Git, dan Go 1.24+
+# Setup Ubuntu (systemd), Docker, Git, and Go 1.24+
 
-Panduan langkah demi langkah untuk Ubuntu (Linux native) agar memenuhi prasyarat proyek: systemd aktif, Docker + Compose v2, Git, dan Go 1.24+.
+Step-by-step guide for Ubuntu (Linux native) to meet the project prerequisites: systemd enabled, Docker + Compose v2, Git, and Go 1.24+.
 
-Ringkas:
-- Distro: Ubuntu (direkomendasikan).
-- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.24+ tersedia.
+Summary:
+- Distro: Ubuntu (recommended).
+- End state: `systemctl` running, Docker Engine active, Git installed, Go 1.24+ available.
 
-## 1) Verifikasi systemd
+## 1) Verify systemd
 
-Pastikan systemd aktif:
+Make sure systemd is running:
 
 ```
 systemctl is-system-running
-# atau
+# or
 systemctl status
 ```
 
-Jika perintah tidak ada, Anda mungkin menggunakan distro tanpa systemd. Gunakan distro dengan systemd (Ubuntu/Debian, dll.).
+If the command is not found, you may be using a distro without systemd. Use a distro with systemd (Ubuntu/Debian, etc.).
 
-## 2) Pasang Git
+## 2) Install Git
 
 ```
 sudo apt update
@@ -27,15 +27,15 @@ sudo apt install -y git
 git --version
 ```
 
-## 3) Pasang Docker Engine + Compose v2
+## 3) Install Docker Engine + Compose v2
 
-Ikuti repositori resmi Docker untuk Ubuntu:
+Follow the official Docker repository for Ubuntu:
 
 ```
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 
-# Tambah key & repo Docker (Ubuntu)
+# Add Docker key & repo (Ubuntu)
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
@@ -48,10 +48,10 @@ echo \
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Aktifkan Docker via systemd
+# Enable Docker via systemd
 sudo systemctl enable --now docker
 
-# (Opsional) gunakan docker tanpa sudo
+# (Optional) run docker without sudo
 sudo usermod -aG docker $USER
 newgrp docker
 
@@ -59,12 +59,12 @@ docker version
 docker compose version
 ```
 
-## 4) Pasang Go 1.24+
+## 4) Install Go 1.24+
 
-Opsi A (disarankan — tarball resmi):
+Option A (recommended — official tarball):
 
 ```
-GO_VER=1.24.0  # ganti ke rilis 1.24.x terbaru
+GO_VER=1.24.0  # replace with latest 1.24.x release
 curl -LO https://go.dev/dl/go${GO_VER}.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go${GO_VER}.linux-amd64.tar.gz
@@ -75,14 +75,14 @@ source ~/.profile || true
 go version
 ```
 
-Opsi B (apt) — sering lebih lama dari 1.24 (tidak direkomendasikan bila butuh 1.24+):
+Option B (apt) — often lags behind 1.24 (not recommended if 1.24+ is required):
 
 ```
 sudo apt update
 sudo apt install -y golang
 ```
 
-## 5) Verifikasi keseluruhan
+## 5) Full verification
 
 ```
 systemctl is-system-running
@@ -94,12 +94,12 @@ docker compose version
 go version
 ```
 
-## 6) Jalankan proyek
+## 6) Run the project
 
-Di root repo:
+From the repo root:
 
 ```
-# Jalankan langsung
+# Run directly
 go run .
 
 # Via Make
@@ -113,10 +113,10 @@ docker run --rm -p 8080:8080 -e PORT=8080 -e CORS_ALLOWED_ORIGINS=* api-basic-go
 docker compose up --build -d
 ```
 
-## Troubleshooting singkat
+## Quick Troubleshooting
 
-- Docker gagal start:
-  - Cek `systemctl status docker` dan `journalctl -u docker -e`.
-  - Pastikan user masuk grup `docker` (`id`), jika belum: `sudo usermod -aG docker $USER` lalu `newgrp docker`.
-- Go tidak terdeteksi:
-  - Pastikan PATH menyertakan `/usr/local/go/bin` dan `$HOME/go/bin`. Muat ulang shell atau `source ~/.profile`.
+- Docker fails to start:
+  - Check `systemctl status docker` and `journalctl -u docker -e`.
+  - Make sure your user is in the `docker` group (`id`); if not: `sudo usermod -aG docker $USER` then `newgrp docker`.
+- Go not detected:
+  - Make sure PATH includes `/usr/local/go/bin` and `$HOME/go/bin`. Reload your shell or run `source ~/.profile`.

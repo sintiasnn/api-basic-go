@@ -1,15 +1,15 @@
-# Setup WSL (systemd), Docker, Git, dan Go 1.24+
+# Setup WSL (systemd), Docker, Git, and Go 1.24+
 
- Panduan langkah demi langkah menyiapkan lingkungan di WSL (Windows) untuk Ubuntu agar memenuhi prasyarat proyek: WSL dengan systemd aktif, Docker + Compose v2, Git, dan Go 1.24+.
+Step-by-step guide for setting up the environment in WSL (Windows) with Ubuntu to meet the project prerequisites: WSL with systemd enabled, Docker + Compose v2, Git, and Go 1.24+.
 
-Ringkas:
-- Target: Ubuntu di WSL.
-- WSL: butuh systemd aktif (Windows 11/10 terbaru dengan WSL update).
-- Hasil akhir: `systemctl` berjalan, Docker Engine aktif, Git terpasang, Go 1.24+ tersedia.
+Summary:
+- Target: Ubuntu on WSL.
+- WSL: requires systemd support (Windows 11 / recent Windows 10 with WSL update).
+- End state: `systemctl` running, Docker Engine active, Git installed, Go 1.24+ available.
 
-## 0) Siapkan/Update WSL (Windows)
+## 0) Prepare/Update WSL (Windows)
 
-Jalankan di PowerShell (Administrator):
+Run in PowerShell (Administrator):
 
 ```
 wsl --update
@@ -17,61 +17,61 @@ wsl --list --online
 wsl --install -d Ubuntu
 ```
 
-Jika sudah punya distro WSL, cukup `wsl --update` untuk memastikan versi terbaru yang mendukung systemd.
+If you already have a WSL distro, just run `wsl --update` to ensure you have the latest version with systemd support.
 
-## 1) Aktifkan systemd di WSL
+## 1) Enable systemd in WSL
 
-Jalankan di terminal distro WSL (Ubuntu):
+Run inside your WSL distro terminal (Ubuntu):
 
 ```
 sudo nano /etc/wsl.conf
 ```
 
-Isi/ubah agar mengandung:
+Add/modify to contain:
 
 ```
 [boot]
 systemd=true
 ```
 
-Simpan, lalu dari PowerShell (Windows):
+Save, then from PowerShell (Windows):
 
 ```
 wsl --shutdown
 ```
 
-Buka kembali distro WSL dan verifikasi:
+Reopen your WSL distro and verify:
 
 ```
 systemctl is-system-running
-# atau
+# or
 systemctl status
 ```
 
-Jika belum active, pastikan WSL sudah di-update dan langkah `wsl --shutdown` dilakukan.
+If it's not active, make sure WSL has been updated and the `wsl --shutdown` step was performed.
 
-## 2) Pasang Git (Ubuntu)
+## 2) Install Git (Ubuntu)
 
 ```
 sudo apt update
 sudo apt install -y git
 ```
 
-Verifikasi:
+Verify:
 
 ```
 git --version
 ```
 
-## 3) Pasang Docker Engine + Compose v2 (di dalam WSL Ubuntu)
+## 3) Install Docker Engine + Compose v2 (inside WSL Ubuntu)
 
-Rekomendasi resmi untuk Ubuntu:
+Official recommendation for Ubuntu:
 
 ```
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 
-# Tambah key dan repo Docker (Ubuntu)
+# Add Docker key and repo (Ubuntu)
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
@@ -84,15 +84,15 @@ echo \
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Aktifkan dan mulai Docker via systemd
+# Enable and start Docker via systemd
 sudo systemctl enable --now docker
 
-# (Opsional) jalankan tanpa sudo
+# (Optional) run without sudo
 sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-Verifikasi:
+Verify:
 
 ```
 docker version
@@ -100,15 +100,15 @@ docker compose version
 docker run --rm hello-world
 ```
 
-Catatan:
-- Alternatif: gunakan Docker Desktop for Windows dengan integrasi WSL. Namun untuk skenario systemd + service, memasang Docker Engine di dalam distro WSL sering lebih konsisten.
+Note:
+- Alternative: use Docker Desktop for Windows with WSL integration. However, for the systemd + service scenario, installing Docker Engine inside the WSL distro is often more consistent.
 
-## 4) Pasang Go 1.24+
+## 4) Install Go 1.24+
 
-Opsi A (disarankan, menggunakan tarball resmi):
+Option A (recommended — official tarball):
 
 ```
-GO_VER=1.24.0  # ganti ke rilis 1.24.x terbaru
+GO_VER=1.24.0  # replace with latest 1.24.x release
 curl -LO https://go.dev/dl/go${GO_VER}.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go${GO_VER}.linux-amd64.tar.gz
@@ -119,16 +119,16 @@ source ~/.profile || true
 go version
 ```
 
-Opsi B (apt) — versi bisa lebih lama dari 1.24 (tidak direkomendasikan bila butuh 1.24+):
+Option B (apt) — version may lag behind 1.24 (not recommended if 1.24+ is required):
 
 ```
 sudo apt update
 sudo apt install -y golang
 ```
 
-## 5) Verifikasi keseluruhan
+## 5) Full verification
 
-Pastikan semua komponen siap:
+Make sure all components are ready:
 
 ```
 systemctl is-system-running
@@ -140,32 +140,32 @@ docker compose version
 go version
 ```
 
-## 6) Jalankan proyek ini
+## 6) Run this project
 
-Di root repo:
+From the repo root:
 
 ```
-# Jalankan langsung
+# Run directly
 go run .
 
-# Atau via Make
+# Or via Make
 make run
 
-# Atau dengan Docker
+# Or with Docker
 docker build -t api-basic-go .
 docker run --rm -p 8080:8080 -e PORT=8080 -e CORS_ALLOWED_ORIGINS=* api-basic-go
 
-# Dengan Docker Compose
+# With Docker Compose
 docker compose up --build -d
 ```
 
-## Troubleshooting ringkas
+## Quick Troubleshooting
 
-- systemd tidak aktif di WSL:
-  - Pastikan `/etc/wsl.conf` berisi `[boot]\nsystemd=true`, lakukan `wsl --shutdown`, lalu buka ulang distro.
-  - Jalankan `wsl --update` di PowerShell untuk memperbarui WSL.
-- Docker gagal start:
-  - Cek `systemctl status docker` dan `journalctl -u docker -e`.
-  - Pastikan user masuk grup `docker` (`id`), jika belum: `sudo usermod -aG docker $USER` lalu `newgrp docker`.
-- Go tidak terdeteksi:
-  - Pastikan PATH menyertakan `/usr/local/go/bin` dan `$HOME/go/bin`. Muat ulang shell atau `source ~/.profile`.
+- systemd not active in WSL:
+  - Make sure `/etc/wsl.conf` contains `[boot]\nsystemd=true`, run `wsl --shutdown`, then reopen the distro.
+  - Run `wsl --update` in PowerShell to update WSL.
+- Docker fails to start:
+  - Check `systemctl status docker` and `journalctl -u docker -e`.
+  - Make sure your user is in the `docker` group (`id`); if not: `sudo usermod -aG docker $USER` then `newgrp docker`.
+- Go not detected:
+  - Make sure PATH includes `/usr/local/go/bin` and `$HOME/go/bin`. Reload your shell or run `source ~/.profile`.

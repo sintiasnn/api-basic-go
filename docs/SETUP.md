@@ -1,19 +1,19 @@
-# Panduan Setup Lingkungan
+# Environment Setup Guide
 
-Dokumen ini merangkum opsi setup untuk memenuhi prasyarat proyek dan menautkan ke panduan langkah demi langkah.
+This document summarizes the setup options to meet the project prerequisites and links to step-by-step guides.
 
-## Opsi Setup
+## Setup Options
 
-- Linux (Ubuntu): ikuti `docs/LINUX_SYSTEMD_SETUP.md`.
-  - Cocok untuk server/VM Linux atau desktop Linux.
-- Windows + WSL (Ubuntu): ikuti `docs/WSL_SYSTEMD_SETUP.md`.
-  - Cocok untuk pengguna Windows yang menggunakan WSL dengan systemd.
+- Linux (Ubuntu): follow `docs/LINUX_SYSTEMD_SETUP.md`.
+  - Suitable for Linux servers/VMs or desktop Linux.
+- Windows + WSL (Ubuntu): follow `docs/WSL_SYSTEMD_SETUP.md`.
+  - Suitable for Windows users running WSL with systemd.
 
-Keduanya menargetkan Ubuntu dengan systemd aktif, Docker Engine + Compose v2, Git, dan Go 1.24+.
+Both target Ubuntu with systemd enabled, Docker Engine + Compose v2, Git, and Go 1.24+.
 
-## Verifikasi Cepat
+## Quick Verification
 
-Jalankan perintah berikut untuk memvalidasi lingkungan:
+Run the following commands to validate your environment:
 
 ```
 systemctl is-system-running
@@ -25,7 +25,7 @@ docker compose version
 go version
 ```
 
-## Langkah Selanjutnya
+## Next Steps
 
-- Baca `README.md` untuk cara menjalankan aplikasi (Go/Docker/Compose).
-- Lihat `REQUIREMENTS.md` untuk rincian prasyarat minimum.
+- Read `README.md` for instructions on running the app (Go/Docker/Compose).
+- See `REQUIREMENTS.md` for minimum requirements details.
